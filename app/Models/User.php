@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -25,6 +26,15 @@ class User extends Authenticatable
      *
      * @var string[]
      */
+    use SoftDeletes;
+
+    protected $dates = [
+        'updated_at',
+        'created_at',
+        'deleted_at',
+        'email_verified_at'
+    ];
+    
     protected $fillable = [
         'name', 'email', 'password',
     ];
@@ -58,4 +68,26 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    // one to one
+    public function detail_user()
+    {
+        return $this->hasOne('App\Models\DetailUser', 'users_id');
+    }
+
+    // one to many
+    public function service()
+    {
+        return $this->hasMany('App\Models\Service', 'users_id');
+    }
+
+    public function order_buyer()
+    {
+        return $this->hasMany('App\Models\Order', 'buyer_id');
+    }
+
+    public function order_freelancer()
+    {
+        return $this->hasMany('App\Models\Order', 'freelancer_id');
+    }
 }
