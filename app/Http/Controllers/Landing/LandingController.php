@@ -88,6 +88,8 @@ class LandingController extends Controller
 
     public function explorer(){
 
+        return view('pages.landing.explore');
+
     }
 
     public function detail($id){
