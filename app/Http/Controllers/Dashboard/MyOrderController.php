@@ -57,7 +57,7 @@ class MyOrderController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('pages.dashboard.order.edit');
     }
 
     /**
