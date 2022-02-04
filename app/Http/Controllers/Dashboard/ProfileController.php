@@ -149,7 +149,7 @@ class ProfileController extends Controller
             }
 
         }
-
+        
         toast()->success('Update has been success');
         return back();
     }
